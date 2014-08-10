@@ -1,11 +1,24 @@
 ---
 layout: default
-title: 我的Blog
+title: Andrwyw's Blog 
 ---
+<div class="span-23 title">
+  <div class="span-20"><a href="/cv.html"><span class="title"><b>Andr</b>wyw</span></a></div>
+</div>
+
 <h2>{{ page.title }}</h2>
-<p>最新文章</p>
-<ul>
+<div class="span-23">
+
 {% for post in site.posts %}
-<li>{{ post.date | date_to_string }} <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
+<div class="post"><div class="posttitle"><a href="{{ post.url }}">{{ post.title }}</a></div>
+<div class="date">{{ post.date | date: "%A, %B %d, %Y" }}</div>
+{{ post.content }}
+</div>
 {% endfor %}
-</ul>
+</div>
+
+
+
+
+
+
