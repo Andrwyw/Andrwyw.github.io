@@ -1,3 +1,17 @@
 permalink: /:categories/:year/:month/:day/:title 
 
 paginate: 5
+
+title :  :)
+author :
+  name : Andrwyw
+
+production_url : http://andrwyw.github.io
+
+
+archive_path: /posts.html
+categories_path : /categories.html
+tags_path : /posts.html
+
+codepiano :
+  version : 0.3.0
