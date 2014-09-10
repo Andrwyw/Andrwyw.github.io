@@ -2,7 +2,7 @@
 layout: post
 title: "Property animation and view animation"
 tags: [animation][android]
-categories: [Android]
+categories: [Other]
 ---
 #Property Animation
 
@@ -19,9 +19,9 @@ ObjectAnimator
 A subclass of ValueAnimator.
 可以设置目标object及object property.
 当Animation计算了一个新值,objectAnimator会自动更新该object的property值.不用手动使用计算过的animated value更新UI.
-┌──────────
+<br/>┌──────────<br/>
 ObjectAnimator.ofFloat(targetObject, "propName", 1f)
-└──────────
+<br/>└──────────
 
 
 ##xml实现中的实现 
@@ -29,11 +29,11 @@ ObjectAnimator.ofFloat(targetObject, "propName", 1f)
 xml位于res/animator下
 <set> or <animator> <objectAnimator>
 
-┌──────────
+┌──────────<br/>
 AnimationSet set = AnimatorInflater.loadAnimator(context,R.anim.name);
 set.setTarget(myObject);
 set.start();
-└──────────
+<br/>└──────────
 
 
 #View Animation
@@ -43,15 +43,15 @@ set.start();
 res/anim目录下新建xml文件.
 根元素<set> or <alpha> <translate> <scale> <rotate>
 
-┌──────────
+┌──────────<br/>
 Animation anim = AnimationUtils.loadAnimation(this,R.anim.animname);
 view.startAnimation(anim);
-└──────────
+<br/>└──────────
 
 
-*********************************
+*********************************<br/>
 
-#Diff：
+# Diff：
 
 -view animation只能用于animate view object,而且只有有限的几个方面可以animate, i.e. rotate,translate,alpha,scale.
 -view animation相关位于android.view.animation包下.Property animation位于android.animation包.
