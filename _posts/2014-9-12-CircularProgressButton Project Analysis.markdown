@@ -56,11 +56,11 @@ fromWidth:getWidth -> toWidth:getHeight,由wh长方形变为直径为h的圆.
 * field定义按 type分组
 * enum
 
-```
+{% highlight ruby %}
 private enum State {
      PROGRESS, IDLE, COMPLETE, ERROR
 }
-```
+{% endhighlight %}
 
 * 使用状态机.      // StateManager
 
