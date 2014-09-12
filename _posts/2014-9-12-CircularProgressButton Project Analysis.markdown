@@ -5,7 +5,7 @@ tags: [open source project][android]
 categories: [Other]
 ---
 
-## setProgress调用流程
+# setProgress调用流程
 
 setProgress - morphToProgress - animation.start
 
@@ -34,11 +34,12 @@ CircularProgressDrawable.start 、 draw  //进度条
 调用createProgressMorphing创建MorphingAnimation.
 MorphingAnimation.start();
 
--createProgressMorphing
+- createProgressMorphing
 设置了MorphingAnimation的From、To Aspects
 fromWidth:getWidth -> toWidth:getHeight,由wh长方形变为直径为h的圆.
 
 **********************************
+
 #C. MorphingAnimation
 
 - start
