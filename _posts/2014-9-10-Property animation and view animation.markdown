@@ -1,10 +1,9 @@
 ---
 layout: post
 title: "Property animation and view animation"
-tags: [animation][android]
-categories: [Other]
+tags:animation android 
+categories:Other
 ---
-
 
 # Property Animation
 
@@ -23,7 +22,7 @@ A subclass of ValueAnimator.
 可以设置目标object及object property.
 当Animation计算了一个新值,objectAnimator会自动更新该object的property值.不用手动使用计算过的animated value更新UI.
 
-{% highlight ruby %}
+{% highlight Java %}
 ObjectAnimator.ofFloat(targetObject, "propName", 1f)
 {% endhighlight %}
 
@@ -32,7 +31,7 @@ ObjectAnimator.ofFloat(targetObject, "propName", 1f)
 xml位于res/animator下
 根元素`set` or `animator` `objectAnimator`
 
-{% highlight ruby %}
+{% highlight Java %}
 AnimationSet set = AnimatorInflater.loadAnimator(context,R.anim.name);
 set.setTarget(myObject);
 set.start();
@@ -46,7 +45,7 @@ set.start();
 res/anim目录下新建xml文件.
 根元素`set` or `alpha` `translate` `scale` `rotate`
 
-{% highlight ruby %}
+{% highlight Java %}
 Animation anim = AnimationUtils.loadAnimation(this,R.anim.animname);
 view.startAnimation(anim);
 {% endhighlight %}

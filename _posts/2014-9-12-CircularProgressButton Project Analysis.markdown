@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "CircularProgressButton Project Analysis"
-tags: [open source project][android]
-categories: [Other]
+tags:aosp android
+categories:Other
 ---
 
 # setProgress调用流程
@@ -56,7 +56,7 @@ fromWidth:getWidth -> toWidth:getHeight,由wh长方形变为直径为h的圆.
 * field定义按 type分组
 * enum
 
-{% highlight ruby %}
+{% highlight Java %}
 private enum State {
      PROGRESS, IDLE, COMPLETE, ERROR
 }
