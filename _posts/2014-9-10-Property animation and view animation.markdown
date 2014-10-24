@@ -1,8 +1,8 @@
 ---
-layout: post
+layout: index_w
 title: "Property animation and view animation"
-tags:animation android 
-categories:Other
+tags:[animation,android] 
+categories:[android,view system,animation]
 ---
 
 # Property Animation
