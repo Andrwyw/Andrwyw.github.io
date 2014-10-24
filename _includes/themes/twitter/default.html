@@ -58,7 +58,7 @@
           <div class="span8">
             <a class="brand" href="{{ HOME_PATH }}">
               <span class="site-author"> {{ site.author.name }} </span>
-              <span class="site-title"> /* {{ site.title }} */ </span>
+              <span class="site-title">  {{ site.title }}  </span>
             </a>
             <ul class="nav">
               {% assign pages_list = site.pages %}
@@ -74,6 +74,5 @@
       <!-- 正文 -->
       {{ content }}
       
-    {% include codepiano/analytics %}
   </body>
 </html>
