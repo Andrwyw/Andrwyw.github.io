@@ -1,7 +1,7 @@
 {% comment %} 主页中生成post的categories信息 {% endcomment %}
-{% for category in post_categories_w %} 
-  <li>
-      {{ category | join: "/" }} 
-  </li>
+<span class="tags">[
+{% for category in post_categories_w %}
+{{ category | join: "/" }} 
 {% endfor %}
+]</span>
 {% assign post_categories_w = nil %}
