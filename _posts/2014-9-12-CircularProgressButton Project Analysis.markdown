@@ -1,5 +1,5 @@
 ---
-layout: index_w
+layout: post_w
 title: "CircularProgressButton Project Analysis"
 tags:[aosp,android]
 categories:[android,aosp]
