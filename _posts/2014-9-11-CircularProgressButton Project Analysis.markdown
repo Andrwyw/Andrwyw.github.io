@@ -1,8 +1,8 @@
 ---
 layout: post_w
 title: "CircularProgressButton Project Analysis"
-tags:[aosp,android]
-categories:[android,aosp]
+tags:[aosp, android]
+categories:[android, aosp]
 ---
 
 # setProgress调用流程
