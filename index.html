@@ -7,7 +7,7 @@ title: Andrwyw
   <h1>Blog Posts</h1>
   <ul class="posts">
     {% for post in site.posts %}
-    {% assign post_categories = post.categories %}
+    {% assign post_categories_w = post.categories %}
     <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a>    
     {% include codepiano/post_categories_info_w %}
     </li>
