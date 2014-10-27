@@ -3,8 +3,8 @@
 {% for category in site_categories %} 
   <li>
     <a href="#{{ category[0]}}-ref" data-toggle="tab">
-      {{ category[0] | join: "/" }} 
-    </a><span> <{{ category | first | size}}></span>
+      {{ category[0] | join: "/" }} [{{ category | last | size}}]
+    </a>
   </li>
 {% endfor %}
 

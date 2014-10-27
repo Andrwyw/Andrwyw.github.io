@@ -15,7 +15,7 @@
   <li>
     <a href="{{ BASE_PATH }}{{ post.url }}" class="post-url">{{ post.title }}</a>
     <span class="tags pull-right">
-      {{ post.categories | join:'/' }}
+      [{{ post.categories | join:'/' }}]
     </span>
   </li>
 
