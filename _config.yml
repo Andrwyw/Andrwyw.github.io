@@ -7,3 +7,9 @@ author :
   name : Andrwyw
 
 production_url : http://andrwyw.github.io
+
+
+comment :
+  provider : disqus
+  disqus :
+    short_name : andrwyw
