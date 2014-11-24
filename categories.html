@@ -10,7 +10,7 @@ title: categories
 
   <div class="tab-content">
     {% for category in site.categories %} 
-    <div class="tab-pane" id="{{ category[0] }}-ref">
+    <div class="tab-pane" id="{{ category[0] | trim:' '}}-ref">
       <ul class="posts">
         {% assign posts_list = category[1] %}  
         {% include posts_of_category %}
