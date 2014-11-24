@@ -2,12 +2,12 @@
 layout: post_w
 title: "[译]Android Scroll手势动画"
 tags: [android] 
-categories: [android, gesture, 翻译,translate ,android training]
+categories: [android, android training, gesture, 翻译]
 ---
 
-> 编写: [Andrwyw](https://github.com/Andrwyw) - 校对:
-> [Android Training中文版](http://hukai.me/android-training-course-in-chinese/index.html)
-> 原文：<http://developer.android.com/training/gestures/scroll.html>
+>编写：[Andrwyw](https://github.com/Andrwyw)   
+>项目：[Android Training中文版](http://hukai.me/android-training-course-in-chinese/index.html)   
+>原文：<http://developer.android.com/training/gestures/scroll.html>   
 
 # Scroll手势动画
 
@@ -39,203 +39,196 @@ Android中通常使用[ScrollView](http://developer.android.com/reference/androi
 
 代码段的第一部分展示了[onFling()](http://developer.android.com/reference/android/view/GestureDetector.OnGestureListener.html#onFling(android.view.MotionEvent,android.view.MotionEvent,float,float))函数的实现：
 
-```java
 //当前视窗（viewport）。这个矩形表示图表当前的可视区域范围。
 //视窗是app中用户可通过触摸手势操作的那部分。
-private RectF mCurrentViewport =
-        new RectF(AXIS_X_MIN, AXIS_Y_MIN, AXIS_X_MAX, AXIS_Y_MAX);
+	private RectF mCurrentViewport =
+			new RectF(AXIS_X_MIN, AXIS_Y_MIN, AXIS_X_MAX, AXIS_Y_MAX);
 
-// The current destination rectangle (in pixel coordinates) into which the
-// chart data should be drawn.
-private Rect mContentRect;
+	// The current destination rectangle (in pixel coordinates) into which the
+	// chart data should be drawn.
+	private Rect mContentRect;
 
-private OverScroller mScroller;
-private RectF mScrollerStartViewport;
-...
-private final GestureDetector.SimpleOnGestureListener mGestureListener
-        = new GestureDetector.SimpleOnGestureListener() {
-    @Override
-    public boolean onDown(MotionEvent e) {
-        // Initiates the decay phase of any active edge effects.
-        releaseEdgeEffects();
-        mScrollerStartViewport.set(mCurrentViewport);
-        // Aborts any active scroll animations and invalidates.
-        mScroller.forceFinished(true);
-        ViewCompat.postInvalidateOnAnimation(InteractiveLineGraphView.this);
-        return true;
-    }
-    ...
-    @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2,
-            float velocityX, float velocityY) {
-        fling((int) -velocityX, (int) -velocityY);
-        return true;
-    }
-};
+	private OverScroller mScroller;
+	private RectF mScrollerStartViewport;
+	...
+	private final GestureDetector.SimpleOnGestureListener mGestureListener
+			= new GestureDetector.SimpleOnGestureListener() {
+		@Override
+		public boolean onDown(MotionEvent e) {
+			// Initiates the decay phase of any active edge effects.
+			releaseEdgeEffects();
+			mScrollerStartViewport.set(mCurrentViewport);
+			// Aborts any active scroll animations and invalidates.
+			mScroller.forceFinished(true);
+			ViewCompat.postInvalidateOnAnimation(InteractiveLineGraphView.this);
+			return true;
+		}
+		...
+		@Override
+		public boolean onFling(MotionEvent e1, MotionEvent e2,
+				float velocityX, float velocityY) {
+			fling((int) -velocityX, (int) -velocityY);
+			return true;
+		}
+	};
 
-private void fling(int velocityX, int velocityY) {
-    // Initiates the decay phase of any active edge effects.
-    releaseEdgeEffects();
-    // Flings use math in pixels (as opposed to math based on the viewport).
-    Point surfaceSize = computeScrollSurfaceSize();
-    mScrollerStartViewport.set(mCurrentViewport);
-    int startX = (int) (surfaceSize.x * (mScrollerStartViewport.left -
-            AXIS_X_MIN) / (
-            AXIS_X_MAX - AXIS_X_MIN));
-    int startY = (int) (surfaceSize.y * (AXIS_Y_MAX -
-            mScrollerStartViewport.bottom) / (
-            AXIS_Y_MAX - AXIS_Y_MIN));
-    // Before flinging, aborts the current animation.
-    mScroller.forceFinished(true);
-    // Begins the animation
-    mScroller.fling(
-            // Current scroll position
-            startX,
-            startY,
-            velocityX,
-            velocityY,
-            /*
-             * Minimum and maximum scroll positions. The minimum scroll
-             * position is generally zero and the maximum scroll position
-             * is generally the content size less the screen size. So if the
-             * content width is 1000 pixels and the screen width is 200
-             * pixels, the maximum scroll offset should be 800 pixels.
-             */
-            0, surfaceSize.x - mContentRect.width(),
-            0, surfaceSize.y - mContentRect.height(),
-            // The edges of the content. This comes into play when using
-            // the EdgeEffect class to draw "glow" overlays.
-            mContentRect.width() / 2,
-            mContentRect.height() / 2);
-    // Invalidates to trigger computeScroll()
-    ViewCompat.postInvalidateOnAnimation(this);
-}
-```
+	private void fling(int velocityX, int velocityY) {
+		// Initiates the decay phase of any active edge effects.
+		releaseEdgeEffects();
+		// Flings use math in pixels (as opposed to math based on the viewport).
+		Point surfaceSize = computeScrollSurfaceSize();
+		mScrollerStartViewport.set(mCurrentViewport);
+		int startX = (int) (surfaceSize.x * (mScrollerStartViewport.left -
+				AXIS_X_MIN) / (
+				AXIS_X_MAX - AXIS_X_MIN));
+		int startY = (int) (surfaceSize.y * (AXIS_Y_MAX -
+				mScrollerStartViewport.bottom) / (
+				AXIS_Y_MAX - AXIS_Y_MIN));
+		// Before flinging, aborts the current animation.
+		mScroller.forceFinished(true);
+		// Begins the animation
+		mScroller.fling(
+				// Current scroll position
+				startX,
+				startY,
+				velocityX,
+				velocityY,
+				/*
+				 * Minimum and maximum scroll positions. The minimum scroll
+				 * position is generally zero and the maximum scroll position
+				 * is generally the content size less the screen size. So if the
+				 * content width is 1000 pixels and the screen width is 200
+				 * pixels, the maximum scroll offset should be 800 pixels.
+				 */
+				0, surfaceSize.x - mContentRect.width(),
+				0, surfaceSize.y - mContentRect.height(),
+				// The edges of the content. This comes into play when using
+				// the EdgeEffect class to draw "glow" overlays.
+				mContentRect.width() / 2,
+				mContentRect.height() / 2);
+		// Invalidates to trigger computeScroll()
+		ViewCompat.postInvalidateOnAnimation(this);
+	}
+
 
 当[onFling()](http://developer.android.com/reference/android/view/GestureDetector.OnGestureListener.html#onFling(android.view.MotionEvent,android.view.MotionEvent,float,float))函数调用[postInvalidateOnAnimation()](http://developer.android.com/reference/android/support/v4/view/ViewCompat.html#postInvalidateOnAnimation(android.view.View))时，它会触发[computeScroll()](http://developer.android.com/reference/android/view/View.html#computeScroll())来更新x、y的值。通常一个子view用scroller对象来产生滚动动画时会这样做，就如上面的例子一样。
 
 大多数views直接通过[scrollTo()](http://developer.android.com/reference/android/view/View.html#scrollTo(int,int))函数传递scroller对象的x、y坐标值。接下来的[computeScroll()](http://developer.android.com/reference/android/view/View.html#computeScroll())函数的实现采用了一种不同的方式。它调用[computeScrollOffset()](http://developer.android.com/reference/android/widget/OverScroller.html#computeScrollOffset())函数来获得当前位置的x、y值。当满足边缘显示发光效果的条件时（图表已被放大显示，x或y值超过边界，并且app当前没有显示overscroll），这段代码会设置overscroll发光效果，并调用[postInvalidateOnAnimation()](http://developer.android.com/reference/android/support/v4/view/ViewCompat.html#postInvalidateOnAnimation(android.view.View))函数来让view失效重绘：
 
-```java
-// Edge effect / overscroll tracking objects.
-private EdgeEffectCompat mEdgeEffectTop;
-private EdgeEffectCompat mEdgeEffectBottom;
-private EdgeEffectCompat mEdgeEffectLeft;
-private EdgeEffectCompat mEdgeEffectRight;
+	// Edge effect / overscroll tracking objects.
+	private EdgeEffectCompat mEdgeEffectTop;
+	private EdgeEffectCompat mEdgeEffectBottom;
+	private EdgeEffectCompat mEdgeEffectLeft;
+	private EdgeEffectCompat mEdgeEffectRight;
 
-private boolean mEdgeEffectTopActive;
-private boolean mEdgeEffectBottomActive;
-private boolean mEdgeEffectLeftActive;
-private boolean mEdgeEffectRightActive;
+	private boolean mEdgeEffectTopActive;
+	private boolean mEdgeEffectBottomActive;
+	private boolean mEdgeEffectLeftActive;
+	private boolean mEdgeEffectRightActive;
 
-@Override
-public void computeScroll() {
-    super.computeScroll();
+	@Override
+	public void computeScroll() {
+		super.computeScroll();
 
-    boolean needsInvalidate = false;
+		boolean needsInvalidate = false;
 
-    // The scroller isn't finished, meaning a fling or programmatic pan
-    // operation is currently active.
-    if (mScroller.computeScrollOffset()) {
-        Point surfaceSize = computeScrollSurfaceSize();
-        int currX = mScroller.getCurrX();
-        int currY = mScroller.getCurrY();
+		// The scroller isn't finished, meaning a fling or programmatic pan
+		// operation is currently active.
+		if (mScroller.computeScrollOffset()) {
+			Point surfaceSize = computeScrollSurfaceSize();
+			int currX = mScroller.getCurrX();
+			int currY = mScroller.getCurrY();
 
-        boolean canScrollX = (mCurrentViewport.left > AXIS_X_MIN
-                || mCurrentViewport.right < AXIS_X_MAX);
-        boolean canScrollY = (mCurrentViewport.top > AXIS_Y_MIN
-                || mCurrentViewport.bottom < AXIS_Y_MAX);
+			boolean canScrollX = (mCurrentViewport.left > AXIS_X_MIN
+					|| mCurrentViewport.right < AXIS_X_MAX);
+			boolean canScrollY = (mCurrentViewport.top > AXIS_Y_MIN
+					|| mCurrentViewport.bottom < AXIS_Y_MAX);
 
-        /*
-         * If you are zoomed in and currX or currY is
-         * outside of bounds and you're not already
-         * showing overscroll, then render the overscroll
-         * glow edge effect.
-         */
-        if (canScrollX
-                && currX < 0
-                && mEdgeEffectLeft.isFinished()
-                && !mEdgeEffectLeftActive) {
-            mEdgeEffectLeft.onAbsorb((int)
-                    OverScrollerCompat.getCurrVelocity(mScroller));
-            mEdgeEffectLeftActive = true;
-            needsInvalidate = true;
-        } else if (canScrollX
-                && currX > (surfaceSize.x - mContentRect.width())
-                && mEdgeEffectRight.isFinished()
-                && !mEdgeEffectRightActive) {
-            mEdgeEffectRight.onAbsorb((int)
-                    OverScrollerCompat.getCurrVelocity(mScroller));
-            mEdgeEffectRightActive = true;
-            needsInvalidate = true;
-        }
+			/*
+			 * If you are zoomed in and currX or currY is
+			 * outside of bounds and you're not already
+			 * showing overscroll, then render the overscroll
+			 * glow edge effect.
+			 */
+			if (canScrollX
+					&& currX < 0
+					&& mEdgeEffectLeft.isFinished()
+					&& !mEdgeEffectLeftActive) {
+				mEdgeEffectLeft.onAbsorb((int)
+						OverScrollerCompat.getCurrVelocity(mScroller));
+				mEdgeEffectLeftActive = true;
+				needsInvalidate = true;
+			} else if (canScrollX
+					&& currX > (surfaceSize.x - mContentRect.width())
+					&& mEdgeEffectRight.isFinished()
+					&& !mEdgeEffectRightActive) {
+				mEdgeEffectRight.onAbsorb((int)
+						OverScrollerCompat.getCurrVelocity(mScroller));
+				mEdgeEffectRightActive = true;
+				needsInvalidate = true;
+			}
 
-        if (canScrollY
-                && currY < 0
-                && mEdgeEffectTop.isFinished()
-                && !mEdgeEffectTopActive) {
-            mEdgeEffectTop.onAbsorb((int)
-                    OverScrollerCompat.getCurrVelocity(mScroller));
-            mEdgeEffectTopActive = true;
-            needsInvalidate = true;
-        } else if (canScrollY
-                && currY > (surfaceSize.y - mContentRect.height())
-                && mEdgeEffectBottom.isFinished()
-                && !mEdgeEffectBottomActive) {
-            mEdgeEffectBottom.onAbsorb((int)
-                    OverScrollerCompat.getCurrVelocity(mScroller));
-            mEdgeEffectBottomActive = true;
-            needsInvalidate = true;
-        }
-        ...
-    }
-```
+			if (canScrollY
+					&& currY < 0
+					&& mEdgeEffectTop.isFinished()
+					&& !mEdgeEffectTopActive) {
+				mEdgeEffectTop.onAbsorb((int)
+						OverScrollerCompat.getCurrVelocity(mScroller));
+				mEdgeEffectTopActive = true;
+				needsInvalidate = true;
+			} else if (canScrollY
+					&& currY > (surfaceSize.y - mContentRect.height())
+					&& mEdgeEffectBottom.isFinished()
+					&& !mEdgeEffectBottomActive) {
+				mEdgeEffectBottom.onAbsorb((int)
+						OverScrollerCompat.getCurrVelocity(mScroller));
+				mEdgeEffectBottomActive = true;
+				needsInvalidate = true;
+			}
+			...
+		}
 
 这是缩放部分的代码：
 
-```java
-// Custom object that is functionally similar to Scroller
-Zoomer mZoomer;
-private PointF mZoomFocalPoint = new PointF();
-...
+	// Custom object that is functionally similar to Scroller
+	Zoomer mZoomer;
+	private PointF mZoomFocalPoint = new PointF();
+	...
 
-// If a zoom is in progress (either programmatically or via double
-// touch), performs the zoom.
-if (mZoomer.computeZoom()) {
-    float newWidth = (1f - mZoomer.getCurrZoom()) *
-            mScrollerStartViewport.width();
-    float newHeight = (1f - mZoomer.getCurrZoom()) *
-            mScrollerStartViewport.height();
-    float pointWithinViewportX = (mZoomFocalPoint.x -
-            mScrollerStartViewport.left)
-            / mScrollerStartViewport.width();
-    float pointWithinViewportY = (mZoomFocalPoint.y -
-            mScrollerStartViewport.top)
-            / mScrollerStartViewport.height();
-    mCurrentViewport.set(
-            mZoomFocalPoint.x - newWidth * pointWithinViewportX,
-            mZoomFocalPoint.y - newHeight * pointWithinViewportY,
-            mZoomFocalPoint.x + newWidth * (1 - pointWithinViewportX),
-            mZoomFocalPoint.y + newHeight * (1 - pointWithinViewportY));
-    constrainViewport();
-    needsInvalidate = true;
-}
-if (needsInvalidate) {
-    ViewCompat.postInvalidateOnAnimation(this);
-}
+	// If a zoom is in progress (either programmatically or via double
+	// touch), performs the zoom.
+	if (mZoomer.computeZoom()) {
+		float newWidth = (1f - mZoomer.getCurrZoom()) *
+				mScrollerStartViewport.width();
+		float newHeight = (1f - mZoomer.getCurrZoom()) *
+				mScrollerStartViewport.height();
+		float pointWithinViewportX = (mZoomFocalPoint.x -
+				mScrollerStartViewport.left)
+				/ mScrollerStartViewport.width();
+		float pointWithinViewportY = (mZoomFocalPoint.y -
+				mScrollerStartViewport.top)
+				/ mScrollerStartViewport.height();
+		mCurrentViewport.set(
+				mZoomFocalPoint.x - newWidth * pointWithinViewportX,
+				mZoomFocalPoint.y - newHeight * pointWithinViewportY,
+				mZoomFocalPoint.x + newWidth * (1 - pointWithinViewportX),
+				mZoomFocalPoint.y + newHeight * (1 - pointWithinViewportY));
+		constrainViewport();
+		needsInvalidate = true;
+	}
+	if (needsInvalidate) {
+		ViewCompat.postInvalidateOnAnimation(this);
+	}
 
-```
 
 这是上面代码段中调用过的**computeScrollSurfaceSize()**函数。他会计算当前可滚动部分的尺寸，以像素为单位。举例来说，如果整个图表区域都是可见的，它的值就简单地等于**mContentRect**的大小。如果图表两个方向上都放大到200%，此函数返回的尺寸在水平、垂直方向上都会大两倍。
 
-```java
-private Point computeScrollSurfaceSize() {
-    return new Point(
-            (int) (mContentRect.width() * (AXIS_X_MAX - AXIS_X_MIN)
-                    / mCurrentViewport.width()),
-            (int) (mContentRect.height() * (AXIS_Y_MAX - AXIS_Y_MIN)
-                    / mCurrentViewport.height()));
-}
-```
+	private Point computeScrollSurfaceSize() {
+		return new Point(
+				(int) (mContentRect.width() * (AXIS_X_MAX - AXIS_X_MIN)
+						/ mCurrentViewport.width()),
+				(int) (mContentRect.height() * (AXIS_Y_MAX - AXIS_Y_MIN)
+						/ mCurrentViewport.height()));
+	}
 
 查看[ViewPager](http://developer.android.com/reference/android/support/v4/view/ViewPager.html)类的[源代码](http://github.com/android/platform_frameworks_support/blob/master/v4/java/android/support/v4/view/ViewPager.java)，可以发现另一个关于scroller的用法示例。它用滚动来响应flings，使用scrolling来实现“对齐到页”(snapping to page)动画。
