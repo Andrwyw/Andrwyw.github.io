@@ -175,7 +175,7 @@ Playing..$..$
 
 需要注意
 
-- 针对的是一系列相似的类(family class)的创建.
-	因为使用的地方(client)只和Factory/Interface关联,不相似的类根本无法抽取出interface,也就无法去除这些类与client之间的关联性.
-- 要有多处client.
-	如果只有一处client会用到创建对象的这段逻辑,那么抽出工厂模式也就没什么意义了.
+- 针对的是一系列相似的类(family class)的创建.   
+  因为使用的地方(client)只和Factory/Interface关联,不相似的类根本无法抽取出interface,也就无法去除这些类与client之间的关联性.
+- 要有多处client.   
+  如果只有一处client会用到创建对象的这段逻辑,那么抽出工厂模式也就没什么意义了.
