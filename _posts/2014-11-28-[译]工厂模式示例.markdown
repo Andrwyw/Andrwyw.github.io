@@ -1,0 +1,173 @@
+---
+layout: post_w
+title: "[译]工厂模式示例"
+tags: [design pattern] 
+categories: [design pattern, 翻译]
+---
+
+>原文：<http://javadesign-patterns.blogspot.com/p/factory-desig.html> 
+
+# 
+工厂模式: 工厂方法模式是面向对象创建型的一种设计模式.工厂模式在创建对象时可不指定此对象的类别.
+
+对象的创建通常都是一个复杂的过程,这些过程不适合放在一个对象中.对象的创建经常会导致大量的重复代码,并且不能提供足够的抽象.程序中,如果有关对象创建的代码到处都是,那么当你需要更改对象创建的过程时,在每一处你都需要做相应的改动.
+
+为了解决这些问题,工厂模式定义一个单独的函数来创建对象.
+
+简单来说,如果我们有一系列相似的类,并且希望为这些类创建对象,我们就可以使用工厂模式.比如,我们有父类和它的很多子类,根据提供的数据,我们需要获得相应子类的对象.
+
+此模式让类与类之间的耦合变得很弱,这是设计程序时非常重要的一个原则.使用抽象实体而不是具体实现更能达到低耦合的效果.
+
+*何时使用*:工厂模式可以用在下面几种情况中:
+1. 一个类不知道它必须要创建的类.
+2. 父类让子类决定何种对象会被创建.
+3. 运行时,你需要根据输入参数创建对象.
+
+*如何使用*:使用工厂模式,我们需要定义一个接口来创建对象,但是要让实现了此接口的类来决定哪个类会被实例化.
+
+下面我们通过一个有问题的例子来更好地理解它.
+
+假如你想开发一个媒体播放器,它可以播放mp3,mp4格式的音频视频文件.这个播放器的类图如下:
+
+![playerClassDiagram](../res/player_class_diagram_without_factory.png);
+
+涉及到的接口和类如下所示
+
+接口Decoder.java是这样写的
+	public interface Decoder {
+		InputStream decodeFile(String mediaFileName);
+	}
+
+MP3Decoder.java这样写
+	public class MP3Decoder implements Decoder {
+
+	   @Override
+	    public InputStream decodeFile(String mediaFileName) {
+			//decode your file here and return the decoded stream
+			System.out.println("MP3Decoder: decoding file "+mediaFileName);
+			return null;
+	    }
+	}
+
+MP4Decoder.java这样写
+public class MP4Decoder implements Decoder {
+
+	@Override
+	public InputStream decodeFile(String mediaFileName) {
+		//decode your file here and return the decoded stream
+		System.out.println("MP4Decoder: decoding file "+mediaFileName);
+		return null;
+	}
+}
+
+Player.java是这样的
+	public class Player {
+
+		public void init() {
+			// initialize the various audio,video components here
+		}
+
+		public void play(String mediaFileName) {
+	        if (mediaFileName == null || "".equals(mediaFileName)) {
+	                   throw new RuntimeException("Invalid media file.");
+	        }
+	        Decoder decoder = getMediaDecoder(mediaFileName);
+	        if (decoder != null) {
+	                 play(decoder.decodeFile(mediaFileName));
+	        } else {
+	                 throw new RuntimeException("Media format not supported.");
+	        }
+		}
+
+		private Decoder getMediaDecoder(String mediaFileName) {
+			mediaFileName = mediaFileName.toUpperCase();
+			if (mediaFileName.endsWith(".MP3")) {
+			          return new MP3Decoder();
+			} else if (mediaFileName.endsWith(".MP4")) {
+			          return new MP4Decoder();
+			}
+			return null;
+		}
+
+		private void play(InputStream stream) {
+			System.out.println("Playing..$..$");
+		}
+	}
+
+问题:这里你可以看到,MP3Decoder/MP4Decoder都和Player紧密地关联着.如果Player类需要支持一种新的格式,那么就需要在Player类中新增一种decoder.所以每次我们都要修改Player类.
+
+解决:为了避免这样的问题,我们可以使用工厂模式.使用了工厂模式的类图如下所示.
+
+![player_class_diagram_factory_pattern](player_class_diagram_factory_pattern.png)
+
+为了使用工厂模式,我们可以新引入一个DecoderFactory.java类,并且把Decoder对象创建从Player类移动到这个类中.
+	public class DecoderFactory{
+
+		public static Decoder getMediaDecoder(String mediaFileName) {
+			mediaFileName = mediaFileName.toUpperCase();
+			if (mediaFileName.endsWith(".MP3")) {
+				return new MP3Decoder();
+			} else if (mediaFileName.endsWith(".MP4")) {
+				return new MP4Decoder();
+			}
+			return null;
+		}
+	}
+
+现在修改Player类来使用工厂类.
+	public class Player {
+		public void init() {
+		       // initialize the various audio,video components here
+		}
+
+		public void play(String mediaFileName) {
+			if (mediaFileName == null || "".equals(mediaFileName)) {
+		        throw new RuntimeException("Invalid media file.");
+			}
+			Decoder decoder = DecoderFactory.getMediaDecoder(mediaFileName);
+			if (decoder != null) {
+				play(decoder.decodeFile(mediaFileName));
+			} else {
+				throw new RuntimeException("Media format not supported.");
+			}
+		}
+
+		private void play(InputStream stream) {
+			System.out.println("Playing..$..$");
+		}
+	}
+
+为了测试player的工厂类,我们可以写一个FactorPatternDemo.java类,如下.
+	public class FactorPatternDemo {
+
+		public static void main(String[] args) {
+			String mediaFile = "C://songs/song1.mp3";
+			Player player = new Player();
+			player.init();
+			player.play(mediaFile);
+			//play other file
+			mediaFile = "C://videos/song2.mp4";
+			player.play(mediaFile);
+		}
+	}
+
+# Output:
+MP3Decoder: decoding file C://songs/song1.mp3
+Playing..$..$
+MP4Decoder: decoding file C://videos/song2.mp4
+Playing..$..$
+
+现在再看Player类,与Decoder之间的关联已经被DecoderFactor移除了.如果Player需要支持一种新的格式,我们也不需要修改player类了,只有Factory需要为新的Decoder进行修改.
+
+
+# p.s.
+
+- 设计模式的key就是用来解决一些常见的问题,所以对问题一定要深入,要搞清楚出现问题的情景(也就是when to use).
+- 当某处需要通过逻辑,创建一系列对象中的一种,并且不确定何种对象会被创建.只有一处还好,但当有很多处都有相同的逻辑时,如果后续创建逻辑改变了,则所有的地方都要进行修改.
+- e.g. 播放界面通过文件的后缀名是mp3还是mp4,来创建Mp3Decoder或Mp4Decoder来播放.编辑器界面,列表预览界面等等也有相同的逻辑.如果新增avi格式文件,则这三个界面的创建逻辑都需要更改.
+
+需要注意
+- 针对的是一系列相似的类(family class)的创建.
+  因为使用的地方(client)只和Factory/Interface关联,不相似的类根本无法抽取出interface,也就无法去除这些类与client之间的关联性.
+- 要有多处client.
+  如果只有一处client会用到创建对象的这段逻辑,那么抽出工厂模式也就没什么意义了.
