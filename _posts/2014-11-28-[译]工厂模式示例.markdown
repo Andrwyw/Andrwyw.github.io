@@ -29,16 +29,18 @@ categories: [design pattern, 翻译]
 
 假如你想开发一个媒体播放器,它可以播放mp3,mp4格式的音频视频文件.这个播放器的类图如下:
 
-![playerClassDiagram](../res/player_class_diagram_without_factory.png);
+<img src="/res/player_class_diagram_without_factory.png" />
 
 涉及到的接口和类如下所示
 
 接口Decoder.java是这样写的
+
 	public interface Decoder {
 		InputStream decodeFile(String mediaFileName);
 	}
 
 MP3Decoder.java这样写
+
 	public class MP3Decoder implements Decoder {
 
 	   @Override
@@ -50,6 +52,7 @@ MP3Decoder.java这样写
 	}
 
 MP4Decoder.java这样写
+
 public class MP4Decoder implements Decoder {
 
 	@Override
@@ -61,6 +64,7 @@ public class MP4Decoder implements Decoder {
 }
 
 Player.java是这样的
+
 	public class Player {
 
 		public void init() {
@@ -98,9 +102,10 @@ Player.java是这样的
 
 解决:为了避免这样的问题,我们可以使用工厂模式.使用了工厂模式的类图如下所示.
 
-![player_class_diagram_factory_pattern](player_class_diagram_factory_pattern.png)
+<img src="/res/player_class_diagram_factory_pattern.png" />
 
 为了使用工厂模式,我们可以新引入一个DecoderFactory.java类,并且把Decoder对象创建从Player类移动到这个类中.
+
 	public class DecoderFactory{
 
 		public static Decoder getMediaDecoder(String mediaFileName) {
@@ -115,6 +120,7 @@ Player.java是这样的
 	}
 
 现在修改Player类来使用工厂类.
+
 	public class Player {
 		public void init() {
 		       // initialize the various audio,video components here
@@ -138,6 +144,7 @@ Player.java是这样的
 	}
 
 为了测试player的工厂类,我们可以写一个FactorPatternDemo.java类,如下.
+
 	public class FactorPatternDemo {
 
 		public static void main(String[] args) {
@@ -167,7 +174,8 @@ Playing..$..$
 - e.g. 播放界面通过文件的后缀名是mp3还是mp4,来创建Mp3Decoder或Mp4Decoder来播放.编辑器界面,列表预览界面等等也有相同的逻辑.如果新增avi格式文件,则这三个界面的创建逻辑都需要更改.
 
 需要注意
+
 - 针对的是一系列相似的类(family class)的创建.
-  因为使用的地方(client)只和Factory/Interface关联,不相似的类根本无法抽取出interface,也就无法去除这些类与client之间的关联性.
+	因为使用的地方(client)只和Factory/Interface关联,不相似的类根本无法抽取出interface,也就无法去除这些类与client之间的关联性.
 - 要有多处client.
-  如果只有一处client会用到创建对象的这段逻辑,那么抽出工厂模式也就没什么意义了.
+	如果只有一处client会用到创建对象的这段逻辑,那么抽出工厂模式也就没什么意义了.
