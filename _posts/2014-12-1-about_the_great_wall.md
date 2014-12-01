@@ -5,7 +5,9 @@ tags: [design pattern]
 categories: [其他]
 ---
 
-由于go-agen't的不稳定性,还是入手了云梯-vpn.
+# 关于墙 #
+
+由于go-agen't的不稳定性,最终还是入手了云梯-vpn.
 
 <img src="/res/about_the_great_wall.gif" />
 
