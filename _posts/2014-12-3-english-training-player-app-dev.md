@@ -18,6 +18,5 @@ categories: [app dev]
 
 ## logs ##
 
-2014-12-3
-==========
+#### 2014-12-3 ####
 针对功能点#1, google 'split voice silent period'得到关键词'speech detection' or 'Voice Activity Detection'. 从而有了研究的方向.
