@@ -7,7 +7,7 @@ categories: [code review]
 
 # codereview.stackexchange
 
-* ![Remove-Last-Comma-Problem](http://codereview.stackexchange.com/questions/1973/remove-last-comma-problem)
+* [Remove-Last-Comma-Problem](http://codereview.stackexchange.com/questions/1973/remove-last-comma-problem)   
 
 	List<String> paramList = new ArrayList<String>( );
 	paramList.add( "param1" );
