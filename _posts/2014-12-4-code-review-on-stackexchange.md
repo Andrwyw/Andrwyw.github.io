@@ -22,7 +22,7 @@ categories: [code review]
 		String withoutLastComma = result.substring( 0, result.length( ) - ", ".length( ) );
 		System.err.println( withoutLastComma );
 
-有更好的办法来去掉最后一个逗号吗?
+	有更好的办法来去掉最后一个逗号吗?
 
-	StringUtils.join() //apache commons-lang api
+		StringUtils.join() //apache commons-lang api
 
