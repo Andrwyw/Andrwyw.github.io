@@ -20,6 +20,7 @@ categories: [app dev]
 
 #### 2014-12-3 ####
 针对功能点#1, google 'split voice silent period'得到关键词'speech detection' or 'Voice Activity Detection'. 从而有了研究的方向.
-#### 2014-12-18 ###
+
+#### 2014-12-18
 [Introduction to Computer Music: Volume One](http://www.indiana.edu/~emusic/etext/toc.shtml)发现的不错edu资源,系统地介绍了acoustic方面的内容.   
 看完后对Waveform的纵轴采样采的到底是是什么?文件中保存的audio raw data究竟代表的是什么什么值?这些问题能有些直观的了解.
