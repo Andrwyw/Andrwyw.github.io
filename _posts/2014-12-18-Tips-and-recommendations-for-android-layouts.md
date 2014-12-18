@@ -22,7 +22,7 @@ categories: [50 android hacks, 读书笔记]
 通常情况下,我们动态控制某些布局的隐藏显示,都是直接控制它的visibility属性的,但如果这些布局始终是invisible,没有机会变visible,那就有些浪费了.
 因为invisible的view,是有size的,在布局inflate的时候也是会有开销的.为了避免这种情况,可以使用<ViewStub>实现lazy loading.
 
-?为什么不用visibility = View.Gone?
+?为什么不用visibility = View.Gone?  
 因为visibility为Gone的view在view hierarchy中的开销还是要比ViewStub大.    
         
 > A ViewStub is a dumb and lightweight view. It has no dimension, it does not draw anything and does not participate in the layout in any way. This means a ViewStub is very cheap to inflate and very cheap to keep in a view hierarchy.    
