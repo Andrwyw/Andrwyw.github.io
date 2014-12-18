@@ -24,14 +24,13 @@ categories: [50 android hacks, 读书笔记]
 
 ?为什么不用visibility = View.Gone?
 因为visibility为Gone的view在view hierarchy中的开销还是要比ViewStub大.    
-
+        
 > A ViewStub is a dumb and lightweight view. It has no dimension, it does not draw anything and does not participate in the layout in any way. This means a ViewStub is very cheap to inflate and very cheap to keep in a view hierarchy.    
 
 > ViewStub仅在inflate函数调用时,或被设为visible时,layout resource才会被inflate.并且viewStub会被inflated view替换掉.
 
 ps:如果只是单个的view,可能不会发现性能有所提升,但当这个view的View Hierarchy比较大时,就能发现了.
-
-
+		
 
 
 # Refs
