@@ -23,8 +23,9 @@ categories: [50 android hacks, 读书笔记]
 因为invisible的view,是有size的,在布局inflate的时候也是会有开销的.为了避免这种情况,可以使用<ViewStub>实现lazy loading.
 
 ?为什么不用visibility = View.Gone?
-因为visibility为Gone的view在view hierarchy中的开销还是要比ViewStub大.
-> A ViewStub is a dumb and lightweight view. It has no dimension, it does not draw anything and does not participate in the layout in any way. This means a ViewStub is very cheap to inflate and very cheap to keep in a view hierarchy.
+因为visibility为Gone的view在view hierarchy中的开销还是要比ViewStub大.    
+
+> A ViewStub is a dumb and lightweight view. It has no dimension, it does not draw anything and does not participate in the layout in any way. This means a ViewStub is very cheap to inflate and very cheap to keep in a view hierarchy.    
 
 > ViewStub仅在inflate函数调用时,或被设为visible时,layout resource才会被inflate.并且viewStub会被inflated view替换掉.
 
