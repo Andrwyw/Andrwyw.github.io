@@ -29,3 +29,11 @@ categories: [50 android hacks, 读书笔记]
 > ViewStub仅在inflate函数调用时,或被设为visible时,layout resource才会被inflate.并且viewStub会被inflated view替换掉.
 
 ps:如果只是单个的view,可能不会发现性能有所提升,但当这个view的View Hierarchy比较大时,就能发现了.
+
+
+
+
+# Refs
+- [Re-using Layouts with <include/>](http://developer.android.com/training/improving-layouts/reusing-layouts.html)
+- [ViewStub class](http://developer.android.com/reference/android/view/ViewStub.html)
+- [Android Layout Tricks #3: Optimize with stubs](http://android-developers.blogspot.sg/2009/03/android-layout-tricks-3-optimize-with.html)
