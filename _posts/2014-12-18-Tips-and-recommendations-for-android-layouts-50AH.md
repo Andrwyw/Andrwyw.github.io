@@ -1,6 +1,6 @@
 ---
 layout: post_w
-title: "Tips and recommendations for android layouts"
+title: "Tips and recommendations for android layouts <50 Android Hacks>"
 tags: [android] 
 categories: [50 android hacks, 读书笔记]
 ---
@@ -31,6 +31,16 @@ categories: [50 android hacks, 读书笔记]
 
 ps:如果只是单个的view,可能不会发现性能有所提升,但当这个view的View Hierarchy比较大时,就能发现了.
 		
+# Hack 3: Creating a custom viewgroup
+
+## ?创建的层叠式的牌堆效果怎么做?使用RelativeLayout+margin? 
+使用custom viewgroup组织更好:
+
+- 在多个activity出现时,更容易维护.
+- 因为精简,所以xml文件的可读性更好.
+
+# Hack 4: Preferences hacks
+偏好设置.preferences framework. 
 
 
 # Refs
