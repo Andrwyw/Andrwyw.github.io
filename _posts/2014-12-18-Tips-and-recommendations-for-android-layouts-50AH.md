@@ -4,21 +4,22 @@ title: "Tips and recommendations for android layouts <50 Android Hacks>"
 tags: [android] 
 categories: [50 android hacks, 读书笔记]
 ---
+# Tips and recommendations for android layouts <50 Android Hacks>
 
-# Hack 1: centering views using weights
+## Hack 1: centering views using weights
 
-## ?如何用最简单的方法,让button居中且占parent50%的宽度?
+### ?如何用最简单的方法,让button居中且占parent50%的宽度?
 	- 使用androi:weightSum和android:layout_weight实现50%宽度.
 	- LineaLayout中用android:gravity:center属性实现居中.
 
 
-# Hack 2: Using layz loading and avoiding replication
+## Hack 2: Using layz loading and avoiding replication
 
-## ?部分布局在很多个xml中重复出现?
+### ?部分布局在很多个xml中重复出现?
 	- 使用<include layout="">标签实现布局引入.
 	- 在<include>标签中可以override included layout的root view的参数.如果需要override,layout_height/wight属性需要同时override,其他override的layout属性才会起作用.
 
-## ?默认让一个view先invisible,随后根据情况让它visible?
+### ?默认让一个view先invisible,随后根据情况让它visible?
 通常情况下,我们动态控制某些布局的隐藏显示,都是直接控制它的visibility属性的,但如果这些布局始终是invisible,没有机会变visible,那就有些浪费了.
 因为invisible的view,是有size的,在布局inflate的时候也是会有开销的.为了避免这种情况,可以使用<ViewStub>实现lazy loading.
 
@@ -31,19 +32,19 @@ categories: [50 android hacks, 读书笔记]
 
 ps:如果只是单个的view,可能不会发现性能有所提升,但当这个view的View Hierarchy比较大时,就能发现了.
 		
-# Hack 3: Creating a custom viewgroup
+## Hack 3: Creating a custom viewgroup
 
-## ?创建的层叠式的牌堆效果怎么做?使用RelativeLayout+margin? 
+### ?创建的层叠式的牌堆效果怎么做?使用RelativeLayout+margin? 
 使用custom viewgroup组织更好:
 
 - 在多个activity出现时,更容易维护.
 - 因为精简,所以xml文件的可读性更好.
 
-# Hack 4: Preferences hacks
+## Hack 4: Preferences hacks
 偏好设置.preferences framework. 
 
 
-# Refs
+## Refs
 - [Re-using Layouts with <include/>](http://developer.android.com/training/improving-layouts/reusing-layouts.html)
 - [ViewStub class](http://developer.android.com/reference/android/view/ViewStub.html)
 - [Android Layout Tricks #3: Optimize with stubs](http://android-developers.blogspot.sg/2009/03/android-layout-tricks-3-optimize-with.html)
